@@ -1,11 +1,11 @@
-const express = require('express');
-const { createTransaction, getTransactions, updateTransaction, deleteTransaction } = require('../controllers/transactionController');
+// const express = require('express');
+// const { createTransaction, getTransactions, updateTransaction, deleteTransaction } = require('../controllers/transactionController');
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post('/', createTransaction);
-router.get('/', getTransactions);
-router.put('/:id', updateTransaction);
-router.delete('/:id', deleteTransaction);
+// router.post('/', createTransaction);
+// router.get('/', getTransactions);
+// router.put('/:id', updateTransaction);
+// router.delete('/:id', deleteTransaction);
 
-module.exports = router;
+// module.exports = router;
