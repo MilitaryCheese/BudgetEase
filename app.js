@@ -1,22 +1,23 @@
-require('dotenv').config();
 const express = require('express');
-const connectDB = require('./config/db');
-
-const authRoutes = require('./routes/authRoutes');
-const transactionRoutes = require('./routes/transactionRoutes');
-
 const app = express();
+const dbConnect = require('./Database/index')
+const errorHandler = require('./middleware/errorHandler')
+const { PORT} = require('./config/index');
+const router = require('./routes/index')
+
+
+dbConnect()
 
 // Middleware
+app.use(errorHandler);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // For URL-encoded payloads
+
+app.use(router)
+
+
 app.use(express.static('public'));
 
-// Connect to MongoDB
-// connectDB();
 
-// Routes
-// app.use('/api/auth', authRoutes);
-// app.use('/api/transactions', transactionRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT,  console.log("SERVER is running at: "+PORT))
