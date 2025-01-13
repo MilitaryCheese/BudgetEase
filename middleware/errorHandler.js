@@ -1,30 +1,28 @@
-const {ValidationError} = require('joi');
+const { ValidationError } = require('joi');
 
-
-const errorHandler = (error,req,res,next) => {
-
-    //default error
+const errorHandler = (error, req, res, next) => {
+    // Default error structure
     let status = 500;
     let data = {
-        message : 'Inernal Server Error'
+        message: 'Internal Server Error',
+    };
+
+    // Validation errors (Joi)
+    if (error instanceof ValidationError) {
+        status = 400; // Bad Request
+        data.message = error.message;
     }
 
-    // if the error is related to validation
-    if(error instanceof ValidationError){
-        status = 401;
-        data.message = error.message;
-        return res.status(status).json(data);
-    }
-    
-    //if error is other than validation
-    if (error.status){
+    // Custom errors with `status` or `message`
+    if (error.status) {
         status = error.status;
     }
-     if (error.message){
+    if (error.message) {
         data.message = error.message;
-     }
+    }
 
-     return res.status(status).json(data);
-}
+    // Send JSON response
+    res.status(status).json(data);
+};
 
 module.exports = errorHandler;

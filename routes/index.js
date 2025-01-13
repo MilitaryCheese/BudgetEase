@@ -5,6 +5,7 @@ const authController = require('../controllers/authController');
 const transactionController = require ('../controllers/transactionController');
 const categoryController = require ('../controllers/categoryController');
 
+
 //USER Router
 //login
 router.post('/login',authController.login);
@@ -19,18 +20,18 @@ router.post('/logout',auth,authController.logout);
 router.get('/refresh',authController.refresh);
 
 // Transaction routes
-router.post('/transactions', transactionController.addTransaction);
-router.get('/transactions', transactionController.getTransactions);
-router.get('/transactions/:id', transactionController.getTransactionById);
-router.put('/transactions/:id', transactionController.updateTransaction);
-router.delete('/transactions/:id', transactionController.deleteTransaction);
+router.post('/transactions',auth, transactionController.addTransaction);
+router.get('/transactions',auth, transactionController.getTransactions);
+router.get('/transactions/:id',auth, transactionController.getTransactionById);
+router.put('/transactions/:id',auth, transactionController.updateTransaction);
+router.delete('/transactions/:id',auth, transactionController.deleteTransaction);
 
 // Category routes
-router.post('/categories', categoryController.addCategory);
-router.get('/categories', categoryController.getCategories);
-router.get('/categories/:id', categoryController.getCategoryById);
-router.put('/categories/:id', categoryController.updateCategory);
-router.delete('/categories/:id', categoryController.deleteCategory);
+router.post('/addcategories',auth, categoryController.addCategory);
+router.get('/getcategories', auth,categoryController.getCategories);
+router.get('/getCategoriesID/:id',auth, categoryController.getCategoryById);
+router.put('/updateCategories/:id', auth,categoryController.updateCategory);
+router.delete('/delCategories/:id', auth,categoryController.deleteCategory);
 
 
 module.exports = router

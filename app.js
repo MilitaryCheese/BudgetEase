@@ -4,7 +4,7 @@ const dbConnect = require('./Database/index')
 const errorHandler = require('./middleware/errorHandler')
 const { PORT} = require('./config/index');
 const router = require('./routes/index')
-
+const cookies = require('cookie-parser');
 
 dbConnect()
 
@@ -12,7 +12,7 @@ dbConnect()
 app.use(errorHandler);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For URL-encoded payloads
-
+app.use(cookies());
 app.use(router)
 
 

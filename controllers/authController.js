@@ -112,7 +112,9 @@ const authController ={
                     status : 409,
                     message : "Invalid email",
                 }
+                console.log(error);
                 return next(error);
+                
             }
             const match = await bcrypt.compare(password,user.password);
             if(!match){
@@ -120,10 +122,12 @@ const authController ={
                     status:409,
                     message:"Invalid password"
                 }
+                console.log(error);
                 return next(error);
             }
         }
         catch(error){
+            console.log(error);
             return next(error);
         }
 
@@ -140,6 +144,7 @@ const authController ={
             );
         }
         catch(error){
+            console.log(error);
             return next(error);
         }
         
