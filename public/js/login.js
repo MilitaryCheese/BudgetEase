@@ -9,6 +9,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     const payload = { email, password };
 
     try {
+        
         // Call the login endpoint
         const response = await fetch("http://localhost:4000/login", {
             method: "POST",
@@ -21,10 +22,14 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         // Handle the response
         if (response.ok) {
             const data = await response.json();
-            alert("Login successful!");
-
+            console.log(data);
             // Save token or user data to local storage (if applicable)
             localStorage.setItem("authToken", data.token); // Example if a token is provided
+            localStorage.setItem("userID", data.user._id);
+            localStorage.setItem("userEmail", data.user.email);
+            localStorage.setItem("userFirstName", data.user.firstName);
+            localStorage.setItem("userLastName", data.user.lastName);
+            alert("Login successful!");
 
             // Redirect the user (e.g., to a dashboard page)
             window.location.href = "index.html";
