@@ -9,7 +9,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link rel="stylesheet" href="css/indexStyle.css" />
   </head>
 
   <body>
@@ -70,11 +71,13 @@
 
       <section id="charts">
         <h2>Financial Charts</h2>
-        <div id="categoryChart">
-          <p>Category chart will be displayed here.</p>
+        <div id="categoryChart" class="card-panel">
+          <h3 class="center-align">Category Chart</h3>
+          <canvas id="categoryChartCanvas"></canvas>
         </div>
-        <div id="incomeVsExpenseChart">
-          <p>Income vs Expense chart will be displayed here.</p>
+        <div id="incomeVsExpenseChart" class="card-panel">
+          <h3 class="center-align">Income vs Expense Chart</h3>
+          <canvas id="incomeVsExpenseChartCanvas"></canvas>
         </div>
       </section>
     </div>
@@ -82,5 +85,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/categoryChart.js"></script>
+    <script src="js/incomeVsExpenseChart.js"></script>
   </body>
 </html>

@@ -13,7 +13,7 @@ body {
 }
 
 nav .brand-logo {
-    color: black;
+    color: #1e88e5;
 }
 
 /* Header customization */
@@ -84,6 +84,10 @@ section {
     border-radius: 5px;
     padding: 20px;
     margin-top: 20px;
+  }
+
+  #categoryChartCanvas {
+    margin: 10px;
   }
 
   table {
