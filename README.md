@@ -20,4 +20,4 @@ This README outlines the steps to install dependencies and run the BudgetEase ap
    ```bash
    node app.js
 
-**3. Access the application:** Open your web browser and navigate to http://localhost:3000 to access the BudgetEase application.
+**3. Access the application:** Open your web browser and navigate to http://localhost:4000 to access the BudgetEase application.

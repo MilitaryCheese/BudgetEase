@@ -71,7 +71,7 @@ const authController ={
 
         res.cookie('accessToken',accessToken,{
             maxAge:1000*60*60*24,
-            httpOnly:true
+            httpOnly:false
         });
 
         res.cookie('refreshToken',refreshToken,{
@@ -150,7 +150,7 @@ const authController ={
         
         res.cookie('accessToken',accessToken,{
             maxAge:1000*60*60*24,
-            httpOnly:true
+            httpOnly:false
         });
 
         res.cookie('refreshToken',refreshToken,{
@@ -159,7 +159,7 @@ const authController ={
         });
 
         //4. send response
-        res.status(200).json({user:user,  auth:true});
+        res.status(200).json({user:user,auth:true,token:accessToken});
     },
 
     async logout(req,res,next){
@@ -226,12 +226,12 @@ const authController ={
         await RefreshToken.updateOne({_id:id},{token:refreshToken});
         res.cookie('accessToken',accessToken,{
             maxAge: 1000*60*60*24,
-            httpOnly:true
+            httpOnly:false
         });
 
         res.cookie('refreshToken',refreshToken,{
             maxAge: 1000*60*60*24,
-            httpOnly:true
+            httpOnly:false
         });
 
        } catch (e) {
@@ -242,7 +242,7 @@ const authController ={
         //send response
         const user = await User.findOne({_id:id});
 
-        res.status(200).json({user:user,auth:true});
+        res.status(200).json({user:user,auth:true,token:accessToken});
 
 
 
