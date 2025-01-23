@@ -1,18 +1,19 @@
+const Transaction = require('../models/Transaction');
 const transactionController = {
 
     async addTransaction (req,res,next){
         try {
-            const { amount, type, category, date, description } = req.body;
+            const { amount, type, category, description } = req.body;
         
-            if (!amount || !type || !category || !date) {
-              return res.status(400).json({ message: 'All fields (amount, type, category, date) are required' });
+            if (!amount || !type || !category) {
+              return res.status(400).json({ message: 'All fields (amount, type, category) are required' });
             }
         
             const transaction = new Transaction({
               amount,
               type,
               category,
-              date,
+              date: new Date(),
               description,
               userId: req.user.id, // Get user ID from authMiddleware
             });
@@ -48,15 +49,15 @@ const transactionController = {
     async updateTransaction (req,res,next){
         try {
             const { id } = req.params;
-            const { amount, type, category, date, description } = req.body;
+            const { amount, type, category, description } = req.body;
         
-            if (!amount || !type || !category || !date) {
-              return res.status(400).json({ message: 'All fields (amount, type, category, date) are required' });
+            if (!amount || !type || !category) {
+              return res.status(400).json({ message: 'All fields (amount, type, category) are required' });
             }
         
             const updatedTransaction = await Transaction.findOneAndUpdate(
               { _id: id, userId: req.user.id },
-              { amount, type, category, date, description },
+              { amount, type, category, date: new Date(), description },
               { new: true } // Return the updated document
             );
         

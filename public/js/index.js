@@ -18,10 +18,7 @@ function getCookie(name) {
 // }
 
 // Handle logout
-document.getElementById('logoutButton').addEventListener('click', function() {
-    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';  // Clear the cookie
-    window.location.href = 'login.html';  // Redirect to login page after logout
-});
+
 
 // Fetch and display the user's budget summary
 function fetchBudgetSummary() {

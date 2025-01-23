@@ -21,10 +21,10 @@ router.get('/refresh',authController.refresh);
 
 // Transaction routes
 router.post('/transactions',auth, transactionController.addTransaction);
-router.get('/transactions',auth, transactionController.getTransactions);
-router.get('/transactions/:id',auth, transactionController.getTransactionById);
-router.put('/transactions/:id',auth, transactionController.updateTransaction);
-router.delete('/transactions/:id',auth, transactionController.deleteTransaction);
+router.get('/getTransactions',auth, transactionController.getTransactions);
+router.get('/getTransactionsID/:id',auth, transactionController.getTransactionById);
+router.put('/updateTransactions/:id',auth, transactionController.updateTransaction);
+router.delete('/delTransactions/:id',auth, transactionController.deleteTransaction);
 
 // Category routes
 router.post('/addcategories',auth, categoryController.addCategory);
