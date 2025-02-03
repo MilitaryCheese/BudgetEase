@@ -35,9 +35,9 @@
 
         <section id="budgetSummary">
           <h2>Budget Summary</h2>
-          <p>Total Income: </p>
-          <p>Total Expenses: </p>
-          <p>Remaining Balance: </p>
+          <p>Total Income:</p>
+          <p>Total Expenses:</p>
+          <p>Remaining Balance:</p>
         </section>
       </div>
 
@@ -68,15 +68,29 @@
           </tbody>
         </table>
 
-        <button id="addTransactionBtn" class="btn waves-effect">Add Transactions</button>
-        <button id="editTransactionBtn" class="btn waves-effect">Edit Transactions</button>
+        <button id="addTransactionBtn" class="btn waves-effect">
+          Add Transactions
+        </button>
+        <button id="editTransactionBtn" class="btn waves-effect">
+          Edit Transactions
+        </button>
       </section>
 
       <section id="charts">
         <h2>Financial Charts</h2>
-        <div id="categoryChart" class="card-panel">
-          <h3 class="center-align">Category Chart</h3>
-          <canvas id="categoryChartCanvas"></canvas>
+        <div class="row">
+          <div class="col s6">
+            <div id="cashFlowChart" class="card-panel">
+              <h3 class="center-align">Cash Flow Analysis</h3>
+              <canvas id="cashFlowChartCanvas"></canvas>
+            </div>
+          </div>
+          <div class="col s6">
+            <div id="transactionTypeChart" class="card-panel">
+              <h3 class="center-align">Transaction Type Breakdown</h3>
+              <canvas id="transactionTypeChartCanvas"></canvas>
+            </div>
+          </div>
         </div>
         <div id="incomeVsExpenseChart" class="card-panel">
           <h3 class="center-align">Income vs Expense Chart</h3>
@@ -88,7 +102,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/logout.js"></script>
-    <script src="js/categoryChart.js"></script>
+    <script src="js/cashFlowChart.js"></script>
+    <script src="js/transactionTypeChart.js"></script>
     <script src="js/incomeVsExpenseChart.js"></script>
   </body>
 </html>
