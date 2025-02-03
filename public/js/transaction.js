@@ -16,15 +16,14 @@ form.addEventListener("submit", async (event) => {
     alert("Amount and category are required.");
     return;
   }
-  console.log(category);
 
-    // Find the selected category to get its type (income/expense)
-    const selectedCategory = allCategories.find(cat => cat._id === category);
-    if (!selectedCategory) {
-      alert("Invalid category selected.");
-      return;
-    }
-    const type = selectedCategory.type; // Get the type from the category
+  // Find the selected category to get its type (income/expense)
+  const selectedCategory = allCategories.find(cat => cat._id === category);
+  if (!selectedCategory) {
+    alert("Invalid category selected.");
+    return;
+  }
+  const type = selectedCategory.type; // Get the type from the category
 
   try {
     const response = await fetch("http://localhost:4000/transactions", {
@@ -50,12 +49,10 @@ form.addEventListener("submit", async (event) => {
     console.error("Error adding transaction:", error);
   }
 
-
-
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td>${date}</td>
-    <td>${description}</td>
+    <td>${new Date(transaction.date).toLocaleDateString()}</td>
+    <td>${type}</td>
     <td>${amount}</td>
     <td>${category}</td>
   `;
@@ -102,7 +99,6 @@ async function addTransaction() {
     alert(result.message); // Notify user
 
     document.getElementById("transactionForm").reset(); // Reset form
-    setDefaultDate(); // Reset date field
     await loadTransactions(); // Refresh transaction table
   } catch (error) {
     console.error("Error adding transaction:", error);
