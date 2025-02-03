@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories - BudgetEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/transactionStyle.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-align">Manage Categories</h1>
+
+        <!-- Add Category Form -->
+        <div class="card">
+            <div class="card-content">
+                <h5>Add New Category</h5>
+                <form id="categoryForm">
+                    <div class="input-field">
+                        <input type="text" id="categoryName" required>
+                        <label for="categoryName">Category Name</label>
+                    </div>
+
+                    <div class="input-field">
+                        <select id="categoryType" required>
+                            <option value="" disabled selected>Choose type</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                        <label for="categoryType">Category Type</label>
+                    </div>
+
+                    <button type="submit" class="btn blue waves-effect waves-light">Add Category</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <h5>All Categories</h5>
+        <!-- Category List -->
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="categoryTableBody">
+                <!-- Categories will be dynamically loaded here -->
+            </tbody>
+        </table>
+        </div>
+        </div>
+
+        <!-- Edit Category Modal -->
+        <div id="editCategoryModal" class="modal">
+            <div class="modal-content">
+                <h4>Edit Category</h4>
+                <form id="editCategoryForm">
+                    <input type="hidden" id="editCategoryId">
+
+                    <div class="input-field">
+                        <input type="text" id="editCategoryName" required>
+                        <label for="editCategoryName">Category Name</label>
+                    </div>
+
+                    <div class="input-field">
+                        <select id="editCategoryType" required>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                        <label for="editCategoryType">Category Type</label>
+                    </div>
+
+                    <button type="submit" class="btn green waves-effect waves-light">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/categories.js"></script>
+</body>
+</html>

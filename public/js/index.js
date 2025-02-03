@@ -190,6 +190,11 @@ document.getElementById("addTransactionBtn").onclick = function () {
 document.getElementById("editTransactionBtn").onclick = function () {
   window.location.href = "editTransactions.html";
 };
+document.getElementById("manageCategories").onclick = function () {
+  window.location.href = "manageCategories.html";
+};
+
+
 
 
 

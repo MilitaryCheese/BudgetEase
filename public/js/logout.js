@@ -22,5 +22,6 @@ document.getElementById("logoutButton").addEventListener("click", async function
         // Handle network or other errors
         console.error("Error during logout:", err);
         alert("An error occurred while logging out. Please try again.");
+        window.location.href = "login.html";
     }
 });
