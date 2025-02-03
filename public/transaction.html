@@ -16,25 +16,26 @@
       <div class="transaction-card">
         <h1>Add New Transaction</h1>
         <form id="transactionForm" class="horizontal-form">
-          <div class="input-field">
-            <input type="date" id="date" required />
-            <label for="date">Date</label>
-          </div>
-
-          <div class="input-field">
-            <input type="text" id="description" required />
-            <label for="description">Description</label>
-          </div>
-
+          
           <div class="input-field">
             <input type="number" id="amount" required />
             <label for="amount">Amount</label>
           </div>
 
           <div class="input-field">
-            <input type="text" id="category" required />
-            <label for="category">Category</label>
+            <select id="categoryDropdown" required>
+              <option value="" disabled selected>Choose a category</option>
+            </select>
+            <label for="categoryDropdown">Category</label>
           </div>
+
+          <!-- <div class="input-field">
+            <select id="transactionType" required>
+              <option value="income" selected>Income</option>
+              <option value="expense">Expense</option>
+            </select>
+            <label for="transactionType">Transaction Type</label>
+          </div> -->
 
           <button type="submit" class="btn waves-effect">
             Add Transaction
