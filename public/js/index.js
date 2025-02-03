@@ -187,6 +187,11 @@ async function fetchTransactions() {
 document.getElementById("addTransactionBtn").onclick = function () {
     window.location.href = "transaction.html";
 };
+document.getElementById("editTransactionBtn").onclick = function () {
+  window.location.href = "editTransactions.html";
+};
+
+
 
 // Initialize the dashboard by fetching data
 function initializeDashboard() {
