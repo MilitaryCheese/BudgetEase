@@ -66,6 +66,8 @@ function openEditModal(event) {
     const amount = button.dataset.amount;
     const categoryId = button.dataset.category;
 
+    console.log(allCategories);
+
     document.getElementById("editTransactionId").value = transactionId;
     document.getElementById("editAmount").value = amount;
 
@@ -85,6 +87,9 @@ document.getElementById("editTransactionForm").addEventListener("submit", async 
     const transactionId = document.getElementById("editTransactionId").value;
     const newAmount = document.getElementById("editAmount").value;
     const newCategory = document.getElementById("editCategoryDropdown").value;
+    const newType = allCategories.find(cat => cat._id === newCategory).type;
+
+    console.log(newType);
 
     try {
         const response = await fetch(`http://localhost:4000/updateTransactions/${transactionId}`, {
@@ -93,7 +98,7 @@ document.getElementById("editTransactionForm").addEventListener("submit", async 
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-            body: JSON.stringify({ amount: newAmount, category: newCategory }),
+            body: JSON.stringify({ amount: newAmount, category: newCategory, type: newType}),
         });
 
         if (!response.ok) throw new Error("Failed to update transaction");
