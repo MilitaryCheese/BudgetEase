@@ -89,7 +89,6 @@ document.getElementById("editTransactionForm").addEventListener("submit", async 
     const newCategory = document.getElementById("editCategoryDropdown").value;
     const newType = allCategories.find(cat => cat._id === newCategory).type;
 
-    console.log(newType);
 
     try {
         const response = await fetch(`http://localhost:4000/updateTransactions/${transactionId}`, {
