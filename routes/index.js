@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const authController = require('../controllers/authController');
 const transactionController = require ('../controllers/transactionController');
 const categoryController = require ('../controllers/categoryController');
-
+const analyticsController = require ('../controllers/anaylticsController')
 
 //USER Router
 //login
@@ -33,5 +33,8 @@ router.get('/getCategoriesID/:id',auth, categoryController.getCategoryById);
 router.put('/updateCategories/:id', auth,categoryController.updateCategory);
 router.delete('/delCategories/:id', auth,categoryController.deleteCategory);
 
+// Analytics routes
+router.get('/analyticsSummary',auth, analyticsController.getSummary);
+router.get('/analyticsCharts',auth, analyticsController.getChartData);
 
 module.exports = router
