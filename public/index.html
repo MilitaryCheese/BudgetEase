@@ -18,6 +18,9 @@
       <nav>
         <div class="nav-wrapper">
           <a id="logo-container" class="brand-logo">BudgetEase</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
           <ul class="right hide-on-med-and-down">
             <button id="logoutButton" class="btn">Logout</button>
           </ul>
@@ -25,15 +28,19 @@
       </nav>
     </div>
 
+    <ul class="sidenav" id="mobile-demo">
+      <li><button id="logoutButton" class="btn">Logout</button></li>
+    </ul>
+
     <div class="container">
       <div class="content">
-        <section id="userProfile">
+        <section id="userProfile" class="card-panel">
           <h3>User Profile</h3>
           <p><strong>Name:</strong> John Doe</p>
           <p><strong>Email:</strong> john.doe@example.com</p>
         </section>
 
-        <section id="budgetSummary">
+        <section id="budgetSummary" class="card-panel">
           <h3>Monthly Budget Summary</h3>
           <p>Total Income:</p>
           <p>Total Expenses:</p>
@@ -41,55 +48,59 @@
         </section>
       </div>
 
-      <section id="transactionHistory">
+      <section id="transactionHistory" class="card-panel">
         <h3>Recent Transactions</h3>
 
-        <button id="addTransactionBtn" class="btn waves-effect">
-          Add Transactions
-        </button>
-        <button id="editTransactionBtn" class="btn waves-effect">
-          Edit Transactions
-        </button>
-        <button id="manageCategories" class="btn waves-effect">
-          Manage Categories
-        </button>
+        <div class="responsive-btn-container">
+          <button id="addTransactionBtn" class="btn waves-effect">
+            Add Transactions
+          </button>
+          <button id="editTransactionBtn" class="btn waves-effect">
+            Edit Transactions
+          </button>
+          <button id="manageCategories" class="btn waves-effect">
+            Manage Categories
+          </button>
+        </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Transaction Type</th>
-              <th>Amount</th>
-              <th>Category</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2025-01-01</td>
-              <td>Groceries</td>
-              <td>$150</td>
-              <td>Food</td>
-            </tr>
-            <tr>
-              <td>2025-01-02</td>
-              <td>Electricity Bill</td>
-              <td>$100</td>
-              <td>Utilities</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="responsive-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2025-01-01</td>
+                <td>Groceries</td>
+                <td>$150</td>
+                <td>Food</td>
+              </tr>
+              <tr>
+                <td>2025-01-02</td>
+                <td>Electricity Bill</td>
+                <td>$100</td>
+                <td>Utilities</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section id="charts">
         <h3>Financial Charts</h3>
         <div class="row">
-          <div class="col s6">
+          <div class="col s12 m6">
             <div id="transactionTypeChart" class="card-panel">
               <h5 class="center-align">Transaction Type</h5>
               <canvas id="transactionTypeChartCanvas"></canvas>
             </div>
           </div>
-          <div class="col s6">
+          <div class="col s12 m6">
             <div id="categoryChart" class="card-panel">
               <h5 class="center-align">Categories</h5>
               <canvas id="categoryChartCanvas"></canvas>
@@ -104,6 +115,11 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        M.Sidenav.init(document.querySelectorAll(".sidenav"));
+      });
+    </script>
     <script src="js/index.js"></script>
     <script src="js/logout.js"></script>
     <script src="js/categoryChart.js"></script>
