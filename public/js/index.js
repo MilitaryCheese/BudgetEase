@@ -55,7 +55,7 @@ function fetchUserData() {
 
     // Optional: You can also update the Budget Summary or other sections with dynamic data.
     document.getElementById("budgetSummary").innerHTML = `
-    <h2>Budget Summary</h2>
+    <h2>Monthly Summary</h2>
     <p>Total Income: $5000</p>
     <p>Total Expenses: $3000</p>
     <p>Remaining Balance: $2000</p>
@@ -129,6 +129,10 @@ async function fetchTransactions() {
         let totalExpense = 0;
         let totalBudget = 0;
 
+        // Get the current year and month
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
         
     
         // For each transaction, get the category name and populate the table
@@ -155,12 +159,16 @@ async function fetchTransactions() {
           `;
           transactionTableBody.appendChild(row);
 
+          const transactionDate = new Date(Date.parse(transaction.date));
+
           // Determine if the transaction is income or expense based on category
+          if (transactionDate.getFullYear() === currentYear && transactionDate.getMonth() === currentMonth) {
             if (category.type === 'income') {
                 totalIncome += transaction.amount;
             } else if (category.type === 'expense') {
                 totalExpense += transaction.amount;
             }
+          }
         }
         // Calculate total budget (Income - Expenses)
         totalBudget = totalIncome - totalExpense;
@@ -171,7 +179,8 @@ async function fetchTransactions() {
 
         // Update the budget summary section
         document.getElementById("budgetSummary").innerHTML = `
-        <h2>Budget Summary</h2>
+        <h2>Monthly Budget Summary</h2>
+        <p>Current Month: ${now.toLocaleString('default', { month: 'long' })+ ", " + currentYear}</p>
         <p>Total Income: $${totalIncome.toFixed(2)}</p>
         <p>Total Expenses: $${totalExpense.toFixed(2)}</p>
         <p>Remaining Balance: $${totalBudget.toFixed(2)}</p>
