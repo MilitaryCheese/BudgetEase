@@ -139,3 +139,7 @@ async function populateCategories() {
     console.error("Error loading categories:", error.message);
   }
 }
+
+document.getElementById("backButton").onclick = function () {
+  window.location.href = "index.html";
+};

@@ -1,30 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function getTransactions() {
-      const rows = document.querySelectorAll("#transactionHistory tbody tr");
-      const transactions = [];
-      let balance = 0;
+    // function getTransactions() {
+    //   const rows = document.querySelectorAll("#transactionHistory tbody tr");
+    //   console.log("data for charts");
+    //   console.log(rows);
+    //   const transactions = [];
+    //   let balance = 0;
   
-      rows.forEach((row) => {
-        const date = new Date(row.cells[0].innerText.trim());
-        const transactionType = row.cells[1].innerText.trim();
-        const amount = parseFloat(row.cells[2].innerText.replace(/[^0-9.-]+/g, ""));
-        const type = row.getAttribute("data-transaction-type") || "expense";
+    //   rows.forEach((row) => {
+    //     const date = new Date(row.cells[0].innerText.trim());
+    //     const transactionType = row.cells[1].innerText.trim();
+    //     const amount = parseFloat(row.cells[2].innerText.replace(/[^0-9.-]+/g, ""));
+    //     const type = row.getAttribute("data-transaction-type") || "expense";
   
-        if (type === "income") {
-          balance += amount;
-        } else {
-          balance -= amount;
-        }
+    //     if (type === "income") {
+    //       balance += amount;
+    //     } else {
+    //       balance -= amount;
+    //     }
   
-        transactions.push({ date, transactionType, amount, balance, type });
-      });
+    //     transactions.push({ date, transactionType, amount, balance, type });
+    //   });
   
-      return transactions.sort((a, b) => a.date - b.date);
-    }
+    //   return transactions.sort((a, b) => a.date - b.date);
+    // }
   
-    function updateCashFlowChart() {
-      const transactions = getTransactions();
-      const labels = transactions.map((t) => t.date.toISOString().split("T")[0]);
+    async function updateCashFlowChart() {
+      const transactions = await getTransactionsfromDb();
+      const labels = transactions.map((t) => new Date(t.date).toISOString().split("T")[0]);
       const data = transactions.map((t) => t.balance);
   
       cashFlowChart.data.labels = labels;
@@ -77,3 +79,21 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCashFlowChart();
   });
   
+
+async function getTransactionsfromDb() {
+    try {
+      const response = await fetch("http://localhost:4000/getTransactions", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch transactions");
+
+  
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error adding transaction:", error);
+  }
+}
