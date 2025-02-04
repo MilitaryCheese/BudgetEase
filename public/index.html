@@ -44,11 +44,16 @@
       <section id="transactionHistory">
         <h3>Recent Transactions</h3>
 
+        <button id="addTransactionBtn" class="btn waves-effect">
+          Add Transactions
+        </button>
+        <button id="editTransactionBtn" class="btn waves-effect">
+          Edit Transactions
+        </button>
+        <button id="manageCategories" class="btn blue waves-effect">
+          Manage Categories
+        </button>
 
-        <button id="addTransactionBtn" class="btn waves-effect">Add Transactions</button>
-        <button id="editTransactionBtn" class="btn waves-effect">Edit Transactions</button>
-        <button id="manageCategories" class="btn blue waves-effect">Manage Categories</button>
-  
         <table>
           <thead>
             <tr>
@@ -73,22 +78,21 @@
             </tr>
           </tbody>
         </table>
-
       </section>
 
       <section id="charts">
         <h3>Financial Charts</h3>
         <div class="row">
           <div class="col s6">
-            <div id="cashFlowChart" class="card-panel">
-              <h5 class="center-align">Cash Flow Analysis</h5>
-              <canvas id="cashFlowChartCanvas"></canvas>
+            <div id="transactionTypeChart" class="card-panel">
+              <h5 class="center-align">Transaction Type</h5>
+              <canvas id="transactionTypeChartCanvas"></canvas>
             </div>
           </div>
           <div class="col s6">
-            <div id="transactionTypeChart" class="card-panel">
-              <h5 class="center-align">Transaction Type Breakdown</h5>
-              <canvas id="transactionTypeChartCanvas"></canvas>
+            <div id="categoryChart" class="card-panel">
+              <h5 class="center-align">Categories</h5>
+              <canvas id="categoryChartCanvas"></canvas>
             </div>
           </div>
         </div>
@@ -102,7 +106,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/logout.js"></script>
-    <script src="js/cashFlowChart.js"></script>
+    <script src="js/categoryChart.js"></script>
     <script src="js/transactionTypeChart.js"></script>
     <script src="js/incomeVsExpenseChart.js"></script>
   </body>

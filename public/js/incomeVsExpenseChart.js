@@ -1,54 +1,56 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Helper function to extract transactions from the table.
-  function getTransactions() {
-    const rows = document.querySelectorAll("#transactionHistory tbody tr");
-    const transactions = [];
-    rows.forEach((row) => {
-      const dateStr = row.cells[0].innerText.trim();
-      const date = new Date(dateStr);
-      const amountStr = row.cells[2].innerText.trim();
-      const amount = parseFloat(amountStr.replace(/[^0-9.-]+/g, ""));
-      // Try to get the type from a data attribute; if not present, use a simple heuristic.
-      const type =
-        row.getAttribute("data-transaction-type") ||
-        (row.cells[1].innerText.toLowerCase().includes("salary")
-          ? "income"
-          : "expense");
-      transactions.push({ date, amount, type });
-    });
-    return transactions;
-  }
-
-  // Group transactions by month (formatted as "YYYY-MM") and sum incomes and expenses.
+document.addEventListener("DOMContentLoaded", async function () {
+  // Function to group transactions by month (formatted as "YYYY-MM") and sum incomes and expenses.
   function groupByMonth(transactions) {
     const grouped = {};
+
     transactions.forEach((tx) => {
-      const monthKey =
-        tx.date.getFullYear() +
-        "-" +
-        String(tx.date.getMonth() + 1).padStart(2, "0");
+      const date = new Date(tx.date);
+      const monthKey = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0");
+
       if (!grouped[monthKey]) {
         grouped[monthKey] = { income: 0, expense: 0 };
       }
+
       if (tx.type === "income") {
         grouped[monthKey].income += tx.amount;
       } else {
         grouped[monthKey].expense += tx.amount;
       }
     });
+
     return grouped;
   }
 
-  // Update the Income vs Expense Chart based on current table data.
-  function updateIncomeExpenseChart() {
-    const transactions = getTransactions();
+  // Function to fetch transactions from the database
+  async function getTransactionsFromDb() {
+    try {
+      const response = await fetch("http://localhost:4000/getTransactions", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
+      if (!response.ok) throw new Error("Failed to fetch transactions");
+
+      const result = await response.json(); // Expected format: [{ date: "2025-02-01", type: "income", amount: 1000 }]
+      return result;
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      return null;
+    }
+  }
+
+  // Fetch transactions and update the Income vs Expense Chart
+  async function updateIncomeExpenseChart() {
+    const transactions = await getTransactionsFromDb();
+    if (!transactions) return;
+
     const grouped = groupByMonth(transactions);
-    const months = Object.keys(grouped).sort(); // Sort keys in chronological order.
+    const months = Object.keys(grouped).sort(); // Sort keys in chronological order
 
     const incomes = months.map((month) => grouped[month].income);
     const expenses = months.map((month) => grouped[month].expense);
 
-    // Format month labels nicely, e.g. "January 2025"
+    // Format month labels, e.g., "January 2025"
     const labels = months.map((month) => {
       const dateObj = new Date(month + "-01");
       return dateObj.toLocaleString("default", { month: "long", year: "numeric" });
@@ -61,10 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
     incomeExpenseChart.update();
   }
 
-  // Create the Income vs Expense Chart instance with empty data.
-  const incomeExpenseCtx = document
-    .getElementById("incomeVsExpenseChartCanvas")
-    .getContext("2d");
+  // Create the Income vs Expense Chart instance
+  const incomeExpenseCtx = document.getElementById("incomeVsExpenseChartCanvas").getContext("2d");
   window.incomeExpenseChart = new Chart(incomeExpenseCtx, {
     type: "bar",
     data: {
@@ -73,12 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           label: "Income",
           data: [],
-          backgroundColor: "#43a047",
+          backgroundColor: "#43a047", // Green
         },
         {
           label: "Expenses",
           data: [],
-          backgroundColor: "#e53935",
+          backgroundColor: "#e53935", // Red
         },
       ],
     },
@@ -97,6 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
-  // Initial update of the Income vs Expense chart.
+  // Initial update of the Income vs Expense chart
   updateIncomeExpenseChart();
 });
